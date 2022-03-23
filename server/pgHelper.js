@@ -50,12 +50,12 @@ const {
   // ADD NEW USER
   let addUser = async(userInput) => {
     const query = {
-      text: `INSERT INTO USER_INFO VALUES ((SELECT MAX(USER_INFO_ID) + 1 FROM USER_INFO), $3, $4, $1, $2)`,
+      text: `INSERT INTO users VALUES ((SELECT MAX(user_id) + 1 FROM users), $1, $2, $3, $4)`,
       values: [
         userInput.newUserName,
         userInput.newUserPassword,
+        userInput.newUserAge,
         userInput.newUserLocation,
-        userInput.newUserRole,
       ]
     }
     return (

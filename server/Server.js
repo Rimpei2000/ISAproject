@@ -27,14 +27,15 @@ app.use((req, res, next) => {
 
 
 // ADD NEW USER
-app.post("/SignUp", jsonParser,  async(req, res) => {
+app.post("/", jsonParser,  async(req, res) => {
   let param = {
     newUserName: req.body.newUserName,
     newUserPassword: req.body.newUserPassword,
-    newUserRole: req.body.newUserRole,
+    newUserAge: req.body.newUserAge,
     newUserLocation: req.body.newUserLocation
   }
-  await addUser(param)
+  let data = await addUser(param)
+  res.json(data)
 })
 
 // CHECK USER

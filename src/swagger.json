@@ -1,0 +1,235 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is partially completed API documentation for an ISA project - Outivity (Group U4)",
+    "version": "1.0.0",
+    "title": "Outivity"
+  },
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "weather",
+      "description": "Responding to queries with weather data"
+    },
+    {
+      "name": "events",
+      "description": "Queries other APIs for event listings which are returned to user"
+    },
+    {
+      "name": "locations",
+      "description": "manages user's list of locations"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/locations": {
+      "post": {
+        "tags": [
+          "loc"
+        ],
+        "summary": "Create user's location data",
+        "description": "User Location data is created the first time a user uses the function.",
+        "operationId": "createLocData",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Location",
+            "description": "Created user data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "409": {
+            "description": "User data already exists!"
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "loc"
+        ],
+        "summary": "Update user's location data",
+        "description": "User location data is updated if the data already exists.",
+        "operationId": "updateLocData",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Location",
+            "description": "Updated user data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User data does not exist!"
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "loc"
+        ],
+        "summary": "Delete user location data",
+        "description": "User location data is deleted.",
+        "operationId": "deleteLocData",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Location",
+            "description": "Deleting user data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User data already exists!"
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/weather": {
+      "get": {
+        "tags": [
+          "weather"
+        ],
+        "summary": "pulls weather data",
+        "description": "pulls weather data from an api and returns it to the client",
+        "operationId": "getweather",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "weatherdata",
+            "description": "Returns sourced weather data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Request had bad syntax or was impossible to fulfill"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "summary": "pulls event listings",
+        "description": "Event data is pulled and returned to the client.",
+        "operationId": "getevents",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "eventlist",
+            "description": "Retrieved event listings",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Request had bad syntax or was impossible to fulfill"
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "userType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Type (regular user or Admin)"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

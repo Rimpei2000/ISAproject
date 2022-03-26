@@ -6,8 +6,12 @@ function Weather() {
     key: "bfee40a57b03b378c6f6fc873967f983",
     url: "https://api.openweathermap.org/data/2.5/",
   };
+
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
+  const [eventSuggestions, setEventSuggestions] = useState({});
+  let isUserSearchingFirstTime = true;
+
   const search = (evt) => {
     if (evt.key === "Enter") {
       fetch(`${api.url}weather?q=${query}&appid=${api.key}&units=metric`)
@@ -45,12 +49,17 @@ function Weather() {
       "Sunday",
     ];
 
-    var day = days[d.getDay()]; // Fetches the day of the week
-    var date = d.getDate(); // Fetches the date i.e. 1st - 31st day of the month
-    var month = months[d.getMonth()]; // Fetches the month
+    var day = days[d.getDay()];
+    var date = d.getDate();
+    var month = months[d.getMonth()];
     var year = d.getFullYear();
 
     return `${day} ${date} ${month} ${year}`;
+  };
+
+  const switchToOldUser = () => {
+    isUserSearchingFirstTime = false;
+    return `Welcome`;
   };
 
   return (
@@ -77,10 +86,19 @@ function Weather() {
                 <div className="date">{getTodaysDate(new Date())}</div>
                 <br></br>
               </div>
+              <aside>Activites Here</aside>
             </div>
           </div>
+        ) : isUserSearchingFirstTime ? (
+          weather.name == null ? (
+            <h1>{switchToOldUser()}</h1>
+          ) : (
+            <div></div>
+          )
+        ) : weather.name == null ? (
+          <div></div>
         ) : (
-          ""
+          <h2>Error! Wrong name entered</h2>
         )}
       </main>
     </div>

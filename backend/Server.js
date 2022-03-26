@@ -6,7 +6,8 @@ const port = 3022;
 
 const {
   addUser,
-  checkUser
+  checkUser,
+  deleteUser
 } = require("./pgHelper");
 
 var jsonParser = bodyParser.json()
@@ -71,6 +72,15 @@ app.get("/LogIn", async(req, res) => {
     }
     let data = await checkUser(param)
     res.json(data)
+})
+
+app.delete("/:userId", jsonParser, async(req, res) => {
+  console.log(req)
+  let param = {
+    username: req.params.userId
+  }
+  let data = await deleteUser(param)
+  res.json(data)
 })
 
 app.listen(port, () => console.log(`Outivity app listening on port ${port}!`));

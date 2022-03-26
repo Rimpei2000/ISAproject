@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import {
   Container,
   Offcanvas,
@@ -16,13 +17,28 @@ const NavBar = (props) => {
 
   const logout = () => {
     window.localStorage.setItem("login", false);
+    window.localStorage.setItem("admin", false);
     console.log("log out")
-    window.location.href = "http://localhost:3001"
+    window.location.href = "http://localhost:3000"
   }
 
   const deleteUser = async() => {
     console.log("Delete user")
-
+    const username = await window.localStorage.getItem("username")
+    const path = 'http://localhost:3022/' + username
+    console.log(path)
+    Axios.delete(path, {
+      username: { username },
+    })
+    .then(res => {
+      console.log(res)
+      if (res.status == 200) {
+        console.log("deleted")
+        window.localStorage.setItem("login", false)
+        window.localStorage.setItem("admin", false)
+        window.location.href = "http://localhost:3000"
+      }
+    })
   }
 
   return (
@@ -37,7 +53,7 @@ const NavBar = (props) => {
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">
-              {props.userName}
+              {window.localStorage.getItem("username")}
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
@@ -50,26 +66,8 @@ const NavBar = (props) => {
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
               <Nav.Link onClick={deleteUser}>Delete Account</Nav.Link>
-              <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
             </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

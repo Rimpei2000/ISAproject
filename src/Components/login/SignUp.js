@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import styled from 'styled-components';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -18,6 +19,10 @@ function SignUp() {
     console.log("login")
     let username = document.getElementById("name").value
     let password = document.getElementById("password").value
+    let admin = false;
+    if (username === "admin") {
+      admin = true
+    }
 
     Axios.get('http://localhost:3022/LogIn', {
       params: {
@@ -31,11 +36,17 @@ function SignUp() {
       if (res.data.length == 1) {
         success = true
         console.log(res.data[0]['user_type_id'])
+        if (admin) {
+          window.localStorage.setItem("admin", true)
+        } else {
+          window.localStorage.setItem("admin", false)
+        }
         window.localStorage.setItem("login", true)
+        window.localStorage.setItem("username", username)
       }
       if (success) {
         console.log("login success")
-        window.location.href = "http://localhost:3001/"
+        window.location.href = "http://localhost:3000/"
       } else {
         window.alert("Login failed")
         console.log("Login failed")
@@ -111,9 +122,11 @@ function SignUp() {
     })
     .then(res => {
       if (res.status == 200) {
+        console.log(res)
         console.log("signup success");
         window.localStorage.setItem("login", true)
-        window.location.href = "http://localhost:3001/"
+        window.localStorage.setItem("username", username)
+        window.location.href = "http://localhost:3000/"
       }
     })
 
@@ -121,7 +134,7 @@ function SignUp() {
   }
 
   return (
-    <>
+    <SignUpStyled>
       <div id='nameContainer'>
         <label for="name">UserName</label>
         <input type='text' id='name'/>
@@ -162,8 +175,38 @@ function SignUp() {
           )
           }
       </div>
-    </>
+    </SignUpStyled>
   );
 }
+
+const SignUpStyled = styled.div`
+  border-radius: 20px;
+  border: 2px solid gray;
+  color: gray;
+  width: 50%;
+  margin: auto;
+  margin-top: 3rem;
+
+  #nameContainer {
+    margin: 1rem;
+  }
+
+  #passwordContainer {
+    margin: 1rem;
+  }
+
+  label {
+    margin-right: 0.5rem;
+  }
+
+  button {
+    border-radius: 20px;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  span{
+    color: red;
+  }
+`;
 
 export default SignUp;

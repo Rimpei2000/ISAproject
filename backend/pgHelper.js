@@ -55,10 +55,11 @@ const {
 
   // DELETE USER
   let deleteUser = async (userInput) => {
+    console.log(userInput)
     const query = {
-      text: `DELETE FROM user_info WHERE user_info_id=$1;`,
+      text: `DELETE FROM user_info WHERE user_info_name=$1;`,
       values: [
-        userInput.userId
+        userInput.username
       ]
     }
     return (

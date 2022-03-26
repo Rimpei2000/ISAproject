@@ -53,8 +53,24 @@ const {
       .catch(err => console.log(err)))
   }
 
+  // DELETE USER
+  let deleteUser = async (userInput) => {
+    const query = {
+      text: `DELETE FROM user_info WHERE user_info_id=$1;`,
+      values: [
+        userInput.userId
+      ]
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err)))
+  }
+
   // export modules
 module.exports = {
   addUser,
   checkUser,
+  deleteUser,
 }

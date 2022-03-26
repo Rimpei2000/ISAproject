@@ -20,6 +20,11 @@ const NavBar = (props) => {
     window.location.href = "http://localhost:3001"
   }
 
+  const deleteUser = async() => {
+    console.log("Delete user")
+
+  }
+
   return (
     <Navbar bg="light" expand={false}>
       <Container fluid>
@@ -44,6 +49,7 @@ const NavBar = (props) => {
               <Nav.Link href="/AboutUs">About us</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
+              <Nav.Link onClick={deleteUser}>Delete Account</Nav.Link>
               <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">

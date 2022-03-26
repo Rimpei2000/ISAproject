@@ -1,22 +1,40 @@
 import "./App.css";
-
+import React, { useEffect, useState } from "react";
+import Home from "./Components/home/Home";
+import SignUp from "./Components/login/SignUp";
+import Landing from "./Components/Landing";
 import AboutUs from "./Components/aboutUs/AboutUs";
 import ContactUs from "./Components/contactUs/ContactUs";
-import Home from "./Components/home/Home";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
 import Map from "./Components/map/Map";
+
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+
+  const [login, setLogin] = useState(false)
+
+  useEffect(() => {
+    if (window.localStorage.getItem("login") === "true") {
+      setLogin(true)
+    }
+    console.log("Login: ", login)
+  }, [])
+
+
   return (
+
     <div className="App">
+    {login ? (
+      <>
       <header>
         <NavBar userName={"username here"}></NavBar>
       </header>
+
       <div style={{ width: "100vw", height: "85vh" }}>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Weather" element={<Weather />} />
           <Route path="/Map" element={<Map />} />
           <Route path="/Settings" element={<Map />} />
@@ -24,9 +42,13 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
       </div>
-      <footer style={{ width: "100vw", height: "5vh" }}>
-        Footer Content here
-      </footer>
+      </>
+    ):(
+      <>
+        <SignUp />
+      </>
+    )}
+
     </div>
   );
 }

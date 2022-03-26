@@ -15,19 +15,17 @@ const {
   });
 
   console.log('not connected')
-  // connect to postgres database using client credentials in const client
   client.connect();
   console.log('connected')
 
   // ADD NEW USER
     let addUser = async(userInput) => {
       const query = {
-        text: `INSERT INTO USER_INFO VALUES ((SELECT MAX(USER_INFO_ID) + 1 FROM USER_INFO), $3, $4, $1, $2)`,
+        text: `INSERT INTO USER_INFO VALUES ((SELECT MAX(USER_INFO_ID) + 1 FROM USER_INFO), $1, $2, 20, $3)`,
         values: [
           userInput.newUserName,
           userInput.newUserPassword,
           userInput.newUserLocation,
-          userInput.newUserRole,
         ]
       }
       return (
@@ -41,8 +39,8 @@ const {
     // CHECK USER
   let checkUser = async(userInput) => {
     const query = {
-      text: `SELECT * FROM USER_INFO WHERE user_info_username=$1
-      AND user_info_password = encode(encrypt(convert_to($2, 'utf8'), 'ENC_KEY', 'aes'), 'hex');`,
+      text: `SELECT * FROM USER_INFO WHERE user_info_name=$1
+      AND user_info_password = encode(encrypt(convert_to($2, 'utf8'), 'ENC_KEY', 'aes'), 'hex');;`,
       values: [
         userInput.userName,
         userInput.userPassword,

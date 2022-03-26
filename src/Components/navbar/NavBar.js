@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Offcanvas,
@@ -11,6 +12,14 @@ import {
 } from "react-bootstrap";
 
 const NavBar = (props) => {
+  const navigate = useNavigate()
+
+  const logout = () => {
+    window.localStorage.setItem("login", false);
+    console.log("log out")
+    window.location.href = "http://localhost:3001"
+  }
+
   return (
     <Navbar bg="light" expand={false}>
       <Container fluid>
@@ -34,6 +43,7 @@ const NavBar = (props) => {
               <Nav.Link href="/Settings">Settings</Nav.Link>
               <Nav.Link href="/AboutUs">About us</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>
+              <Nav.Link onClick={logout}>Log Out</Nav.Link>
               <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">

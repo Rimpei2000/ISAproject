@@ -69,9 +69,27 @@ const {
       .catch(err => console.log(err)))
   }
 
+  //UPDATE Location
+  let updateLocation = async(userInput) => {
+    console.log(userInput)
+    const query = {
+      text: `UPDATE user_info SET user_info_location_id = $1 WHERE user_info_name = $2;`,
+      values: [
+        userInput.newLocation,
+        userInput.userName,
+      ]
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
   // export modules
 module.exports = {
   addUser,
   checkUser,
   deleteUser,
+  updateLocation
 }

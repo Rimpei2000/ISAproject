@@ -8,6 +8,7 @@ import ContactUs from "./Components/contactUs/ContactUs";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
 import Map from "./Components/map/Map";
+import MyInfo from "./Components/MyInfo";
 
 import { Route, Routes } from "react-router-dom";
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/Settings" element={<Map />} />
           <Route path="/ContactUs" element={<ContactUs />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/MyInfo" element={<MyInfo />} />
         </Routes>
       </div>
       </>

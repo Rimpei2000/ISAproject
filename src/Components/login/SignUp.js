@@ -52,7 +52,6 @@ function SignUp() {
         console.log("Login failed")
       }
     })
-
   }
 
   const handleSignUp = async() => {
@@ -126,6 +125,7 @@ function SignUp() {
         console.log("signup success");
         window.localStorage.setItem("login", true)
         window.localStorage.setItem("username", username)
+        window.localStorage.setItem("location", location)
         window.location.href = "http://localhost:3000/"
       }
     })

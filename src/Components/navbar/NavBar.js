@@ -63,6 +63,7 @@ const NavBar = (props) => {
               <Nav.Link href="/Events">Events</Nav.Link>
               <Nav.Link href="/Settings">Settings</Nav.Link>
               <Nav.Link href="/AboutUs">About us</Nav.Link>
+              <Nav.Link href="/MyInfo">My Info</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
               <Nav.Link onClick={deleteUser}>Delete Account</Nav.Link>

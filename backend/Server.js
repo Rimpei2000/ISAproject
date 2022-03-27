@@ -7,7 +7,8 @@ const port = 3022;
 const {
   addUser,
   checkUser,
-  deleteUser
+  deleteUser,
+  updateLocation
 } = require("./pgHelper");
 
 var jsonParser = bodyParser.json()
@@ -80,6 +81,15 @@ app.delete("/:userId", jsonParser, async(req, res) => {
     username: req.params.userId
   }
   let data = await deleteUser(param)
+  res.json(data)
+})
+
+app.put("/MyInfo", jsonParser, async(req, res) => {
+  let param = {
+    newLocation: req.body.newLocation,
+    userName: req.body.userName
+  }
+  let data = await updateLocation(param)
   res.json(data)
 })
 

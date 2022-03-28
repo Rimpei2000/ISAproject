@@ -9,8 +9,10 @@ function Weather() {
 
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
-  const [eventSuggestions, setEventSuggestions] = useState({});
+  // const [eventSuggestions, setEventSuggestions] = useState({});
   let isUserSearchingFirstTime = true;
+  const [lat, setLat] = useState("");
+  const [lon, setLon] = useState("");
 
   const search = (evt) => {
     if (evt.key === "Enter") {
@@ -18,6 +20,11 @@ function Weather() {
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
+          console.log(result.coord.lat);
+          // setLat(result.coord.lat);
+
+          // setLon(result.coord.lon);
+
           setQuery("");
           console.log(result);
         });
@@ -89,16 +96,10 @@ function Weather() {
               <aside>Activites Here</aside>
             </div>
           </div>
-        ) : isUserSearchingFirstTime ? (
-          weather.name == null ? (
-            <h1>{switchToOldUser()}</h1>
-          ) : (
-            <div></div>
-          )
-        ) : weather.name == null ? (
-          <div></div>
         ) : (
-          <h2>Error! Wrong name entered</h2>
+          <div>
+            <h1>{weather.message}</h1>
+          </div>
         )}
       </main>
     </div>
@@ -106,3 +107,14 @@ function Weather() {
 }
 
 export default Weather;
+
+// isUserSearchingFirstTime ? (
+//   weather.name == null ? (
+//     <h1>{switchToOldUser()}</h1>
+//   ) : (
+//     <div>Error! New user but incorrect input</div>
+//   )
+// ) : weather.name == null ? (
+//   <div></div>
+// ) : (
+//   <h2>Error! Wrong name entered</h2>

@@ -1,23 +1,22 @@
 const express = require("express");
 const app = express();
 let request = require("request");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const port = 3022;
 
-const {
-  addUser,
-  checkUser
-} = require("./pgHelper");
+const { addUser, checkUser } = require("./pgHelper");
 
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json();
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Content-Length, X-Requested-With"
+  );
   next();
 });
-
 
 // First endpoint
 app.get("/", (req, res) => res.send("HomePage is running"));
@@ -50,27 +49,25 @@ app.get("/aboutUs", (req, res) => res.send("HomePage is running"));
 // Eighth endpoint
 app.get("/contactUs", (req, res) => res.send("HomePage is running"));
 
-
 // SIGN UP
-app.post("/SignUp", jsonParser, async(req, res) => {
+app.post("/SignUp", jsonParser, async (req, res) => {
   let param = {
     newUserName: req.body.newUserName,
     newUserPassword: req.body.newUserPassword,
-    newUserLocation: req.body.newUserLocation
-  }
-  let data = await addUser(param)
-  res.json(data)
+    newUserLocation: req.body.newUserLocation,
+  };
+  let data = await addUser(param);
+  res.json(data);
 });
 
-
 // LOG IN
-app.get("/LogIn", async(req, res) => {
+app.get("/LogIn", async (req, res) => {
   let param = {
-      userName: req.query.userName,
-      userPassword: req.query.userPassword
-    }
-    let data = await checkUser(param)
-    res.json(data)
-})
+    userName: req.query.userName,
+    userPassword: req.query.userPassword,
+  };
+  let data = await checkUser(param);
+  res.json(data);
+});
 
 app.listen(port, () => console.log(`Outivity app listening on port ${port}!`));

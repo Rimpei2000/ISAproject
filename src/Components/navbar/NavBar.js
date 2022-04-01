@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -59,8 +59,9 @@ const NavBar = (props) => {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Weather">Weather</Nav.Link>
-              <Nav.Link href="/Map/*">Map</Nav.Link>
-              <Nav.Link href="/AboutUs">About us</Nav.Link>
+              <Nav.Link href="/Parks">Parks</Nav.Link>
+              <Nav.Link href="/Buildings">Heritage Buildings</Nav.Link>
+              <Nav.Link href="/Food">Food</Nav.Link>
               <Nav.Link href="/MyInfo">My Info</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>
               <Nav.Link onClick={logout}>Log Out</Nav.Link>

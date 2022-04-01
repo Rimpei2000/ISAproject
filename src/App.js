@@ -2,16 +2,15 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import Home from "./Components/home/Home";
 import SignUp from "./Components/login/SignUp";
-import Landing from "./Components/Landing";
-import AboutUs from "./Components/aboutUs/AboutUs";
 import ContactUs from "./Components/contactUs/ContactUs";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
-import AllMapsView from "./Components/map/Map";
 import MyInfo from "./Components/MyInfo";
 
 import { Route, Routes } from "react-router-dom";
 import Parks from "./Components/activities/parks";
+import HeritageBuildings from "./Components/activities/buildings";
+import StreetFoodLocations from "./Components/activities/food";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -35,9 +34,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Weather" element={<Weather />} />
-              <Route path="/Map/*" element={<AllMapsView />} />
+              <Route path="/Parks" element={<Parks />} />
+              <Route path="/Buildings" element={<HeritageBuildings />} />
+              <Route path="/Food" element={<StreetFoodLocations />} />
               <Route path="/ContactUs" element={<ContactUs />} />
-              <Route path="/AboutUs" element={<AboutUs />} />
               <Route path="/MyInfo" element={<MyInfo />} />
             </Routes>
           </div>

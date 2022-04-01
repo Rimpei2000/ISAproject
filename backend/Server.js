@@ -4,7 +4,12 @@ let request = require("request");
 const bodyParser = require("body-parser");
 const port = 3022;
 
-const { addUser, checkUser } = require("./pgHelper");
+const {
+  addUser,
+  checkUser,
+  deleteUser,
+  updateLocation,
+} = require("./pgHelper");
 
 var jsonParser = bodyParser.json();
 
@@ -67,6 +72,24 @@ app.get("/LogIn", async (req, res) => {
     userPassword: req.query.userPassword,
   };
   let data = await checkUser(param);
+  res.json(data);
+});
+
+app.delete("/:userId", jsonParser, async (req, res) => {
+  console.log(req);
+  let param = {
+    username: req.params.userId,
+  };
+  let data = await deleteUser(param);
+  res.json(data);
+});
+
+app.put("/MyInfo", jsonParser, async (req, res) => {
+  let param = {
+    newLocation: req.body.newLocation,
+    userName: req.body.userName,
+  };
+  let data = await updateLocation(param);
   res.json(data);
 });
 

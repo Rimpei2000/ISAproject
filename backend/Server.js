@@ -8,7 +8,10 @@ const {
   addUser,
   checkUser,
   deleteUser,
-  updateLocation
+  updateLocation,
+  sendMsg,
+  endpointRequested,
+  getRequests
 } = require("./pgHelper");
 
 var jsonParser = bodyParser.json()
@@ -61,9 +64,9 @@ app.post("/SignUp", jsonParser, async(req, res) => {
     newUserLocation: req.body.newUserLocation
   }
   let data = await addUser(param)
+  await endpointRequested({endpoint_uri: "/SignUp"})
   res.json(data)
 });
-
 
 // LOG IN
 app.get("/LogIn", async(req, res) => {
@@ -72,6 +75,7 @@ app.get("/LogIn", async(req, res) => {
       userPassword: req.query.userPassword
     }
     let data = await checkUser(param)
+    await endpointRequested({endpoint_uri: "/LogIn"})
     res.json(data)
 })
 
@@ -81,6 +85,7 @@ app.delete("/:userId", jsonParser, async(req, res) => {
     username: req.params.userId
   }
   let data = await deleteUser(param)
+  await endpointRequested({endpoint_uri: "/:userId"})
   res.json(data)
 })
 
@@ -90,6 +95,22 @@ app.put("/MyInfo", jsonParser, async(req, res) => {
     userName: req.body.userName
   }
   let data = await updateLocation(param)
+  await endpointRequested({endpoint_uri: "/MyInfo"})
+  res.json(data)
+})
+
+app.post("/ContactUs", jsonParser, async(req, res) => {
+  let param = {
+    username: req.body.username,
+    msg: req.body.msg,
+  }
+  let data = await sendMsg(param)
+  await endpointRequested({endpoint_uri: "/ContactUs"})
+  res.json(data)
+})
+
+app.get("/endpoints", jsonParser, async(req, res) => {
+  let data = await getRequests()
   res.json(data)
 })
 

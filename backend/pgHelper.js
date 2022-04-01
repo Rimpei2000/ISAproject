@@ -86,10 +86,57 @@ const {
       .catch(err => console.log(err))
     )
   }
+
+  let sendMsg = async(userInput) => {
+      const query = {
+        text: "INSERT INTO messages VALUES ((SELECT MAX(message_id) + 1 FROM messages), $1, $2);",
+        values: [
+          userInput.username,
+          userInput.msg,
+        ]
+      }
+      return (
+        await client
+        .query(query)
+        .then(res => res)
+        .catch(err => console.log(err))
+      )
+  }
+
+  let endpointRequested = async(userInput) => {
+    const query = {
+      text: "UPDATE endpoints SET endpoint_requested = endpoint_requested + 1 WHERE endpoint_uri=$1;",
+      values: [
+        userInput.endpoint_uri,
+      ]
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
+
+  let getRequests = async() => {
+    const query = {
+      text: "SELECT * FROM endpoints ORDER BY endpoint_id;",
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
+
   // export modules
 module.exports = {
   addUser,
   checkUser,
   deleteUser,
-  updateLocation
+  updateLocation,
+  sendMsg,
+  endpointRequested,
+  getRequests
 }

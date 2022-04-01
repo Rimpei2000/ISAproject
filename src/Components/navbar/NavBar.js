@@ -59,9 +59,7 @@ const NavBar = (props) => {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/Weather">Weather</Nav.Link>
-              <Nav.Link href="/Events">Events</Nav.Link>
-              <Nav.Link href="/Parks">Parks</Nav.Link>
-              <Nav.Link href="/Settings">Settings</Nav.Link>
+              <Nav.Link href="/Map/*">Map</Nav.Link>
               <Nav.Link href="/AboutUs">About us</Nav.Link>
               <Nav.Link href="/MyInfo">My Info</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>

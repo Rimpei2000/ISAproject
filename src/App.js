@@ -7,11 +7,11 @@ import AboutUs from "./Components/aboutUs/AboutUs";
 import ContactUs from "./Components/contactUs/ContactUs";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
-import Map from "./Components/map/Map";
+import AllMapsView from "./Components/map/Map";
 import MyInfo from "./Components/MyInfo";
 
 import { Route, Routes } from "react-router-dom";
-import Parks from "./Components/activities/Parks";
+import Parks from "./Components/activities/parks";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -35,9 +35,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Weather" element={<Weather />} />
-              <Route path="/Parks" element={<Parks />} />
-              <Route path="/Map" element={<Map />} />
-              <Route path="/Settings" element={<Map />} />
+              <Route path="/Map/*" element={<AllMapsView />} />
               <Route path="/ContactUs" element={<ContactUs />} />
               <Route path="/AboutUs" element={<AboutUs />} />
               <Route path="/MyInfo" element={<MyInfo />} />

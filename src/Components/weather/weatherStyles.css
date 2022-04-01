@@ -1,0 +1,131 @@
+/* .App {
+  text-align: center;
+} */
+
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+} */
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */
+
+/* .App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+} */
+/* 
+.App-link {
+  color: #61dafb;
+} */
+
+/* @keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+/* 
+body {
+  font-family: sans-serif;
+} */
+
+/* .app {
+  background-image: blue;
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4 ease-out;
+} */
+
+main {
+  min-height: 100vh;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.75)
+  );
+  padding: 50px;
+}
+
+.Weather.warm {
+  background-image: yellow;
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4 ease-out;
+}
+
+.search-bar {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 0 0 75px;
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 5px 5px rgba(39, 35, 35, 0.3);
+  border-radius: 40px;
+}
+
+.search-bar:focus {
+  background-color: white;
+}
+
+.date {
+  color: white;
+  font-size: medium;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0.5px 0.5px rgb(90, 100, 100);
+}
+
+.city {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px auto;
+  text-align: center;
+  text-shadow: 0.5px 0.5px rgb(37, 39, 39);
+}
+
+.temp {
+  position: relative;
+  display: inline-block;
+  font-size: 80px;
+  margin: 20px auto 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0.5px 0.5px rgb(37, 39, 39);
+  border-radius: 40px;
+  padding: 40px 60px;
+  color: white;
+  text-align: center;
+}
+
+.condition {
+  position: relative;
+  display: block;
+  margin: 25px auto 80px;
+  padding: 15px 25px;
+  color: white;
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+}

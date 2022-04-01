@@ -1,34 +1,35 @@
-import React, { useState } from "react";
-import "../../styles/weatherStyles.css";
+import React, { useEffect, useState } from "react";
+import "./weatherStyles.css";
 
 function Weather() {
   const api = {
     key: "bfee40a57b03b378c6f6fc873967f983",
     url: "https://api.openweathermap.org/data/2.5/",
   };
-
-  const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
-  // const [eventSuggestions, setEventSuggestions] = useState({});
-  let isUserSearchingFirstTime = true;
-  const [lat, setLat] = useState("");
-  const [lon, setLon] = useState("");
 
-  const search = (evt) => {
-    if (evt.key === "Enter") {
-      fetch(`${api.url}weather?q=${query}&appid=${api.key}&units=metric`)
-        .then((res) => res.json())
-        .then((result) => {
-          setWeather(result);
-          console.log(result.coord.lat);
-          // setLat(result.coord.lat);
+  const search = () => {
+    fetch(`${api.url}weather?q=${"vancouver"}&appid=${api.key}&units=metric`)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result != null) {
+          setWeather({
+            temperature: Math.round(result.main.temp),
+            condition: result.weather[0].main,
+            name: result.name,
+            country: result.sys.country,
+          });
+        }
+      });
+  };
 
-          // setLon(result.coord.lon);
-
-          setQuery("");
-          console.log(result);
-        });
+  let checkActivities = () => {
+    if (weather.condition == "Sunny") {
+      return "Check out Parks";
+    } else {
+      return "Checkout heritage buildings";
     }
+    // return eventSuggestions;
   };
 
   const getTodaysDate = (d) => {
@@ -64,43 +65,31 @@ function Weather() {
     return `${day} ${date} ${month} ${year}`;
   };
 
-  const switchToOldUser = () => {
-    isUserSearchingFirstTime = false;
-    return `Welcome`;
-  };
+  useEffect(() => {
+    search();
+  }, []);
 
   return (
     <div>
       <main>
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Enter your city"
-          onChange={(e) => setQuery(e.target.value)}
-          value={query}
-          onKeyPress={search}
-        ></input>
-        {typeof weather.main != "undefined" ? (
-          <div>
-            <div className="weather-container">
-              <div className="weather">
-                <div className="temp">{Math.round(weather.main.temp)}°C</div>
-                <div className="condition">{weather.weather[0].main}</div>
-                <div className="city">
-                  {weather.name}, {weather.sys.country}
-                </div>
-                <br></br>
-                <div className="date">{getTodaysDate(new Date())}</div>
-                <br></br>
+        <div>
+          {console.log(weather.length)}
+          <div className="weather-container">
+            <div className="weather">
+              <div className="temp">{weather.temperature}°C</div>
+              <div className="condition">{weather.condition}</div>
+              <div className="city">
+                {weather.name}, {weather.country}
               </div>
-              <aside>Activites Here</aside>
+              <br></br>
+              <div className="date">{getTodaysDate(new Date())}</div>
+              <br></br>
+            </div>
+            <div className="temp" id="tempActivities">
+              {checkActivities()}
             </div>
           </div>
-        ) : (
-          <div>
-            <h1>{weather.message}</h1>
-          </div>
-        )}
+        </div>
       </main>
     </div>
   );
@@ -108,13 +97,4 @@ function Weather() {
 
 export default Weather;
 
-// isUserSearchingFirstTime ? (
-//   weather.name == null ? (
-//     <h1>{switchToOldUser()}</h1>
-//   ) : (
-//     <div>Error! New user but incorrect input</div>
-//   )
-// ) : weather.name == null ? (
-//   <div></div>
-// ) : (
-//   <h2>Error! Wrong name entered</h2>
+//

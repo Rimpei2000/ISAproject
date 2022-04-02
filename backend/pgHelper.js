@@ -130,6 +130,55 @@ const {
     )
   }
 
+  let getUserIdByName = async(userInput) => {
+    const query = {
+      text: "SELECT user_info_id FROM user_info WHERE user_info_name=$1;",
+      values: [
+        userInput.user_name,
+      ]
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
+
+  let addFav = async(userInput) => {
+    const query = {
+      text: "INSERT INTO favorites VALUES ($1, $2, $3, $4, $5);",
+      values: [
+        userInput.userId,
+        userInput.favName,
+        userInput.favCat,
+        userInput.lat,
+        userInput.lng,
+      ]
+    }
+    eturn (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
+
+  let getDistinctFav = async(userInput) => {
+    const query = {
+      text: "SELECT DISTINCT fav_item_name FROM favorites WHERE user_id=$1;",
+      values: [
+        userInput.user_id,
+      ]
+    }
+    return (
+      await client
+      .query(query)
+      .then(res => res)
+      .catch(err => console.log(err))
+    )
+  }
+
   // export modules
 module.exports = {
   addUser,
@@ -138,5 +187,8 @@ module.exports = {
   updateLocation,
   sendMsg,
   endpointRequested,
-  getRequests
+  getRequests,
+  getUserIdByName,
+  addFav,
+  getDistinctFav
 }

@@ -12,6 +12,9 @@ const {
   sendMsg,
   endpointRequested,
   getRequests,
+  getUserIdByName,
+  addFav,
+  getDistinctFav
 } = require("./pgHelper");
 
 var jsonParser = bodyParser.json();
@@ -125,6 +128,24 @@ app.get("/API/v1/Foods", async(req, res) => {
 
 app.get("/API/v1/Buildings", async(req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Buildings" });
+})
+
+app.post("/API/v1/AddFav", jsonParser, (req,res) => {
+  let param = {
+    username: req.body.username,
+  }
+  let id = await getUserIdByName(param);
+  console.log("User Id: ", id);
+  let paramToAdd = {
+    userId: id,
+    favName: ,
+    favCat: ,
+    lat: ,
+    lng: ,
+  }
+  let data = await addFav(paramToAdd);
+  await endpointRequested({ endpoint_uri: "/API/v1/AddFav"});
+  res.json(data);
 })
 
 app.listen(port, () => console.log(`Outivity app listening on port ${port}!`));

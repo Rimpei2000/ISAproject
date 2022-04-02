@@ -12,6 +12,7 @@ function Home() {
   const [sixthEndpoint, setSixthEndpoint] = useState(0)
   const [seventhEndpoint, setSeventhEndpoint] = useState(0)
   const [eighthEndpoint, setEighthEndpoint] = useState(0)
+  const [ninethEndpoint, setNinethEndpoint] = useState(0)
   const [endpointsList, setEndpointsList] = useState([])
 
   const getReqNumbers = async() => {
@@ -49,8 +50,12 @@ function Home() {
             setSeventhEndpoint(item.endpoint_requested)
             break;
 
-          default:
+          case 8:
             setEighthEndpoint(item.endpoint_requested)
+            break;
+
+          default:
+            setNinethEndpoint(item.endpoint_requested)
             break;
         }
       })
@@ -116,6 +121,11 @@ function Home() {
             <p>GET</p>
             <p>API/v1/Foods</p>
             <p>{eighthEndpoint}</p>
+          </div>
+          <div className='endpoint'>
+            <p>POST</p>
+            <p>API/v1/ADDFav</p>
+            <p>{ninethEndpoint}</p>
           </div>
         </>
       ) : (

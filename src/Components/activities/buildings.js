@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
-
+import Axios from 'axios';
 export default function HeritageBuildings() {
   const [geopins, setGeopins] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(null);
@@ -76,8 +76,13 @@ export default function HeritageBuildings() {
     });
   };
 
+  const incrementRequest = async() => {
+    Axios.get("http://localhost:3022/API/v1/Buildings")
+  }
+
   useEffect(() => {
     fetchHeritageBuildings();
+    incrementRequest();
   }, []);
 
   return (

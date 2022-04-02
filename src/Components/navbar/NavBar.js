@@ -25,7 +25,7 @@ const NavBar = (props) => {
   const deleteUser = async () => {
     console.log("Delete user");
     const username = await window.localStorage.getItem("username");
-    const path = "http://localhost:3022/" + username;
+    const path = "http://localhost:3022/API/v1/" + username;
     console.log(path);
     Axios.delete(path, {
       username: { username },

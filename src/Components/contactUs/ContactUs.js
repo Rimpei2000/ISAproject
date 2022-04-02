@@ -12,7 +12,7 @@ function ContactUs() {
     }
     console.log(msg)
     let name = await window.localStorage.getItem("username")
-    Axios.post('http://localhost:3022/ContactUs', {
+    Axios.post('http://localhost:3022/API/v1/ContactUs', {
       username: name,
       msg: msg,
     })

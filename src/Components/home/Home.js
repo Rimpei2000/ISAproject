@@ -15,7 +15,7 @@ function Home() {
   const [endpointsList, setEndpointsList] = useState([])
 
   const getReqNumbers = async() => {
-    await Axios.get("http://localhost:3022/endpoints", {
+    await Axios.get("http://localhost:3022/API/v1/endpoints", {
     })
     .then(res => {
       setEndpointsList(res["data"]["rows"])

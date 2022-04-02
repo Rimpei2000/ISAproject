@@ -119,7 +119,7 @@ function MyInfo() {
         newLoc = 12
     }
 
-    Axios.put("http://localhost:3022/MyInfo", {
+    Axios.put("http://localhost:3022/API/v1/MyInfo", {
       newLocation: newLoc,
       userName: username,
     })

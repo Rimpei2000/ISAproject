@@ -1,43 +1,114 @@
-import { useState } from "react";
-import { Carousel, Tab, Row, Col, ListGroup } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import Map, { Popup, Marker } from "react-map-gl";
+import Axios from "axios";
 
-export default function Facourites() {
-  //   const [index, setIndex] = useState(0);
+export default function Favourites() {
+  const [geopins, setGeopins] = useState([]);
+  const [selectedFavourites, setSelectedFavourites] = useState(null);
+  const favouriteMarkers = [];
 
-  //   const handleSelect = (selectedIndex, e) => {
-  //     setIndex(selectedIndex);
-  //   };
+  const fetchFavourites = async () => {
+    Axios.get("http://localhost:3022/API/v1/GetFav", {
+      params: { username: window.localStorage.getItem("username") },
+    })
+      .then((res) => res)
+      .then((result) => {
+        console.log(result.data.rows);
+        for (let key in result.data.rows) {
+          for (let internalKey in result.data.rows[key]) {
+            let objData = result.data.rows[key];
+            favouriteMarkers.push({
+              longitude: objData.fav_lng,
+              latitude: objData.fav_lat,
+              name: objData.fav_item_name,
+              category: objData.fav_cat,
+              image:
+                objData.fav_cat == "Parks"
+                  ? `./parks.svg`
+                  : objData.fav_cat == "Heritage Buildings"
+                  ? `./building.svg`
+                  : `./food.svg`,
+            });
+            break;
+          }
+        }
+        setGeopins(favouriteMarkers);
+      });
+  };
+
+  const addMarkers = () => {
+    return geopins.map((ithMarker) => {
+      return (
+        <Marker
+          key={`marker-${ithMarker.latitude}`}
+          id={ithMarker.name}
+          latitude={ithMarker.latitude}
+          longitude={ithMarker.longitude}
+        >
+          <button
+            key={`markerButtonKey-${ithMarker.latitude}`}
+            id={`markerButtonId-${ithMarker.id}`}
+            style={{ background: "none", border: "none", cursor: "pointer" }}
+            onClick={() => {
+              setSelectedFavourites(ithMarker);
+            }}
+          >
+            <img
+              style={{ height: "25px" }}
+              src={ithMarker.image}
+              alt={ithMarker.name}
+            />
+          </button>
+        </Marker>
+      );
+    });
+  };
+
+  const addPopup = () => {
+    return geopins.map((ithMarker) => {
+      return selectedFavourites &&
+        selectedFavourites.latitude == ithMarker.latitude ? (
+        <Popup
+          key={`popup-${ithMarker.latitude}`}
+          id={`popup-${ithMarker.id}`}
+          latitude={ithMarker.latitude}
+          longitude={ithMarker.longitude}
+          offsetTop={-30}
+        >
+          <div>
+            <p>{ithMarker.name}</p>
+            <p>{ithMarker.category}</p>
+          </div>
+        </Popup>
+      ) : null;
+    });
+  };
+
+  useEffect(() => {
+    fetchFavourites();
+  }, []);
 
   return (
-    <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
-      <Row>
-        <Col sm={4}>
-          <ListGroup>
-            <ListGroup.Item action href="#Parks">
-              Parks
-            </ListGroup.Item>
-            <ListGroup.Item action href="#Heritage Buildings">
-              Heritage Buildings
-            </ListGroup.Item>
-            <ListGroup.Item action href="#Food">
-              Food
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-      </Row>
-    </Tab.Container>
+    <Map
+      initialViewState={{
+        longitude: -123.19258095208848,
+        latitude: 49.25901995475811,
+        zoom: 11,
+      }}
+      style={{
+        width: "80vw",
+        height: "80vh",
+        fog: {
+          range: [-0.5, 3],
+          color: "white",
+          "horizon-blend": 0.1,
+        },
+      }}
+      mapStyle="mapbox://styles/mapbox/streets-v9"
+      mapboxAccessToken="pk.eyJ1IjoiYmh1cGVzaGQiLCJhIjoiY2wxNXN1ZWVwMGoxNTNjcDhkZHh5Z2NsaCJ9.G67FI-pS8DZRWCX5Nt1vrA"
+    >
+      {addMarkers()}
+      {addPopup()}
+    </Map>
   );
 }
-
-// <Col sm={8}>
-// <Tab.Content>
-//   <Tab.Pane eventKey="#link1">
-//     <Sonnet />
-//   </Tab.Pane>
-//   <Tab.Pane eventKey="#link2">
-//     <Sonnet />
-//   </Tab.Pane>
-// </Tab.Content>
-// </Col>
-
-//   render(<ControlledCarousel />);

@@ -14,7 +14,7 @@ const {
   getRequests,
   getUserIdByName,
   addFav,
-  getDistinctFav
+  getDistinctFav,
 } = require("./pgHelper");
 
 var jsonParser = bodyParser.json();
@@ -118,34 +118,40 @@ app.get("/API/v1/endpoints", jsonParser, async (req, res) => {
   res.json(data);
 });
 
-app.get("/API/v1/Parks", async(req, res) => {
+app.get("/API/v1/Parks", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Parks" });
-})
+});
 
-app.get("/API/v1/Foods", async(req, res) => {
+app.get("/API/v1/Foods", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Foods" });
-})
+});
 
-app.get("/API/v1/Buildings", async(req, res) => {
+app.get("/API/v1/Buildings", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Buildings" });
-})
+});
 
-app.post("/API/v1/AddFav", jsonParser, (req,res) => {
-  let param = {
-    username: req.body.username,
-  }
-  let id = await getUserIdByName(param);
-  console.log("User Id: ", id);
+app.post("/API/v1/AddFav", jsonParser, async (req, res) => {
   let paramToAdd = {
-    userId: id,
-    favName: ,
-    favCat: ,
-    lat: ,
-    lng: ,
-  }
+    userName: req.body.username,
+    favName: req.body.favName,
+    favCat: req.body.favCat,
+    lat: req.body.lat,
+    lng: req.body.lng,
+  };
+  console.log(paramToAdd);
   let data = await addFav(paramToAdd);
-  await endpointRequested({ endpoint_uri: "/API/v1/AddFav"});
+  await endpointRequested({ endpoint_uri: "/API/v1/AddFav" });
   res.json(data);
-})
+});
+
+app.get("/API/v1/GetFav", jsonParser, async (req, res) => {
+  let param = {
+    userName: req.query.username,
+  };
+
+  let data = await getDistinctFav(param);
+  await endpointRequested({ endpoint_uri: "/API/v1/GetFav" });
+  res.json(data);
+});
 
 app.listen(port, () => console.log(`Outivity app listening on port ${port}!`));

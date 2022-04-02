@@ -142,7 +142,7 @@ function SignUp() {
 
       <div id='passwordContainer'>
         <label for="password">Password</label>
-        <input type='text' id='password' />
+        <input type='password' id='password' />
       </div>
 
         <div className="btnContainer">

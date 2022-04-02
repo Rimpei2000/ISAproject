@@ -6,9 +6,9 @@ import ContactUs from "./Components/contactUs/ContactUs";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
 import MyInfo from "./Components/MyInfo";
-
+import PageNotFound from "./Components/PageNotFound"
 import { Route, Routes } from "react-router-dom";
-import Parks from "./Components/activities/parks";
+import Parks from "./Components/activities/Parks";
 import HeritageBuildings from "./Components/activities/buildings";
 import StreetFoodLocations from "./Components/activities/food";
 
@@ -39,6 +39,7 @@ function App() {
               <Route path="/Food" element={<StreetFoodLocations />} />
               <Route path="/ContactUs" element={<ContactUs />} />
               <Route path="/MyInfo" element={<MyInfo />} />
+              <Route path='*' element={<PageNotFound/>} />
             </Routes>
           </div>
         </>

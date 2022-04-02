@@ -99,6 +99,7 @@ export default function HeritageBuildings() {
                   lat: ithMarker.latitude,
                   lng: ithMarker.longitude,
                 });
+
                 window.alert("Added");
               }}
             >

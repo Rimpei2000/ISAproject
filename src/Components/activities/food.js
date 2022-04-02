@@ -1,6 +1,7 @@
 import react, { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
 import Axios from "axios";
+
 export default function StreetFoodLocations() {
   const [geopins, setGeopins] = useState([]);
   const [selectedFood, setSelectedFood] = useState(null);
@@ -88,13 +89,8 @@ export default function StreetFoodLocations() {
     });
   };
 
-  const incrementRequest = async () => {
-    Axios.get("http://localhost:3022/API/v1/Foods");
-  };
-
   useEffect(() => {
     fetchStreetFoodLocs();
-    incrementRequest();
   }, []);
 
   return (

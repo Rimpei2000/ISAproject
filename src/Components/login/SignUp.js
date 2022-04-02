@@ -24,7 +24,7 @@ function SignUp() {
       admin = true
     }
 
-    Axios.get('http://localhost:3022/LogIn', {
+    Axios.get('http://localhost:3022/API/v1/LogIn', {
       params: {
         userName: username,
         userPassword: password,
@@ -114,7 +114,7 @@ function SignUp() {
       newUserLocation: location
     }
 
-    Axios.post('http://localhost:3022/SignUp', {
+    Axios.post('http://localhost:3022/API/v1/SignUp', {
       newUserName: values.newUsername,
       newUserPassword: values.newUserPassword,
       newUserLocation: values.newUserLocation,
@@ -142,7 +142,7 @@ function SignUp() {
 
       <div id='passwordContainer'>
         <label for="password">Password</label>
-        <input type='text' id='password' />
+        <input type='password' id='password' />
       </div>
 
         <div className="btnContainer">

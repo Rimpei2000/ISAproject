@@ -1,7 +1,6 @@
 import react, { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
 import Axios from "axios";
-
 export default function Parks() {
   const [geopins, setGeopins] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null);
@@ -89,8 +88,13 @@ export default function Parks() {
     });
   };
 
+  const incrementRequest = async () => {
+    Axios.get("http://localhost:3022/API/v1/Parks");
+  };
+
   useEffect(() => {
     fetchParks();
+    incrementRequest();
   }, []);
 
   return (

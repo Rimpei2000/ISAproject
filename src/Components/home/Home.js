@@ -12,10 +12,11 @@ function Home() {
   const [sixthEndpoint, setSixthEndpoint] = useState(0)
   const [seventhEndpoint, setSeventhEndpoint] = useState(0)
   const [eighthEndpoint, setEighthEndpoint] = useState(0)
+  const [ninethEndpoint, setNinethEndpoint] = useState(0)
   const [endpointsList, setEndpointsList] = useState([])
 
   const getReqNumbers = async() => {
-    await Axios.get("http://localhost:3022/endpoints", {
+    await Axios.get("http://localhost:3022/API/v1/endpoints", {
     })
     .then(res => {
       setEndpointsList(res["data"]["rows"])
@@ -49,8 +50,12 @@ function Home() {
             setSeventhEndpoint(item.endpoint_requested)
             break;
 
-          default:
+          case 8:
             setEighthEndpoint(item.endpoint_requested)
+            break;
+
+          default:
+            setNinethEndpoint(item.endpoint_requested)
             break;
         }
       })
@@ -79,43 +84,48 @@ function Home() {
           </div>
           <div className='endpoint'>
             <p>PUT</p>
-            <p>/signup</p>
+            <p>API/v1/signup</p>
             <p>{firstEndpoint}</p>
           </div>
           <div className='endpoint'>
             <p>GET</p>
-            <p>/LogIn</p>
+            <p>API/v1/LogIn</p>
             <p>{secondEndpoint}</p>
           </div>
           <div className='endpoint'>
             <p>DELETE</p>
-            <p>/:userId</p>
+            <p>API/v1/:userId</p>
             <p>{thirdEndpoint}</p>
           </div>
           <div className='endpoint'>
             <p>PUT</p>
-            <p>/MyInfo</p>
+            <p>API/v1/MyInfo</p>
             <p>{fourthEndpoint}</p>
           </div>
           <div className='endpoint'>
             <p>POST</p>
-            <p>/ContactUs</p>
+            <p>API/v1/ContactUs</p>
             <p>{fifthEndpoint}</p>
           </div>
           <div className='endpoint'>
-            <p>Sixth</p>
-            <p>/something</p>
+            <p>GET</p>
+            <p>API/v1/Parks</p>
             <p>{sixthEndpoint}</p>
           </div>
           <div className='endpoint'>
-            <p>Seventh</p>
-            <p>/something</p>
+            <p>GET</p>
+            <p>API/v1/Buildings</p>
             <p>{seventhEndpoint}</p>
           </div>
           <div className='endpoint'>
-            <p>Eighth</p>
-            <p>/something</p>
+            <p>GET</p>
+            <p>API/v1/Foods</p>
             <p>{eighthEndpoint}</p>
+          </div>
+          <div className='endpoint'>
+            <p>POST</p>
+            <p>API/v1/ADDFav</p>
+            <p>{ninethEndpoint}</p>
           </div>
         </>
       ) : (

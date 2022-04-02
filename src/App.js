@@ -11,6 +11,7 @@ import { Route, Routes } from "react-router-dom";
 import Parks from "./Components/activities/parks";
 import HeritageBuildings from "./Components/activities/buildings";
 import StreetFoodLocations from "./Components/activities/food";
+import Favourites from "./Components/favourites/favourites";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -37,6 +38,7 @@ function App() {
               <Route path="/Parks" element={<Parks />} />
               <Route path="/Buildings" element={<HeritageBuildings />} />
               <Route path="/Food" element={<StreetFoodLocations />} />
+              <Route path="/Favourites" element={<Favourites />} />
               <Route path="/ContactUs" element={<ContactUs />} />
               <Route path="/MyInfo" element={<MyInfo />} />
             </Routes>

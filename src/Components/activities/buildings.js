@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
+import Axios from "axios";
 
 export default function HeritageBuildings() {
   const [geopins, setGeopins] = useState([]);
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const buildingMarkers = [];
-
-  const favouriteBuildings = [];
 
   const fetchHeritageBuildings = () => {
     fetch(
@@ -21,7 +20,10 @@ export default function HeritageBuildings() {
               buildingMarkers.push({
                 longitude: objData.geo_point_2d[1],
                 latitude: objData.geo_point_2d[0],
-                name: objData.buildingnamespecifics,
+                name:
+                  objData.buildingnamespecifics == "N/A"
+                    ? objData.category
+                    : objData.buildingnamespecifics,
                 id: objData.id,
               });
               break;
@@ -36,12 +38,14 @@ export default function HeritageBuildings() {
     return geopins.map((ithMarker) => {
       return (
         <Marker
-          key={ithMarker.id}
+          key={`marker-${ithMarker.id}`}
           id={ithMarker.name}
           latitude={ithMarker.latitude}
           longitude={ithMarker.longitude}
         >
           <button
+            key={`markerButtonKey-${ithMarker.id}`}
+            id={`markerButtonId-${ithMarker.id}`}
             style={{ background: "none", border: "none", cursor: "pointer" }}
             onClick={() => {
               setSelectedBuilding(ithMarker);
@@ -58,10 +62,27 @@ export default function HeritageBuildings() {
     });
   };
 
+  // const addToFavourites = (ithMarker) => {
+  //   let isDuplicate = false;
+  //   for (let key in geopins) {
+  //     if (geopins[key]["id"] == ithMarker["id"]) {
+  //       isDuplicate = true;
+  //     }
+  //   }
+  //   if (!isDuplicate) {
+  //     favouriteBuildings.push(ithMarker);
+
+  //     window.alert("Added!");
+  //   } else {
+  //     window.alert("Already exists");
+  //   }
+  // };
+
   const addPopup = () => {
     return geopins.map((ithMarker) => {
       return selectedBuilding && selectedBuilding.id == ithMarker.id ? (
         <Popup
+          key={`popup-${ithMarker.id}`}
           id={ithMarker.id}
           latitude={ithMarker.latitude}
           longitude={ithMarker.longitude}
@@ -69,7 +90,20 @@ export default function HeritageBuildings() {
         >
           <div>
             <p>{ithMarker.name}</p>
-            <button>Add to favourites</button>
+            <button
+              onClick={() => {
+                Axios.post("http://localhost:3022/API/v1/AddFav", {
+                  username: window.localStorage.getItem("username"),
+                  favName: ithMarker.name,
+                  favCat: "Heritage Buildings",
+                  lat: ithMarker.latitude,
+                  lng: ithMarker.longitude,
+                });
+                window.alert("Added");
+              }}
+            >
+              Add to favourites
+            </button>
           </div>
         </Popup>
       ) : null;
@@ -101,17 +135,17 @@ export default function HeritageBuildings() {
     >
       {addMarkers()}
       {addPopup()}
-
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: "1",
-        }}
-      >
-        <h1>Something to be displayed</h1>
-      </div>
     </Map>
   );
 }
+
+// <div
+//         style={{
+//           position: "absolute",
+//           top: "10px",
+//           left: "10px",
+//           zIndex: "1",
+//         }}
+//       >
+//         <h1>Something to be displayed</h1>
+//       </div>

@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
+import Axios from "axios";
 
 export default function StreetFoodLocations() {
   const [geopins, setGeopins] = useState([]);
@@ -20,6 +21,7 @@ export default function StreetFoodLocations() {
                 longitude: objData.geom.coordinates[0],
                 latitude: objData.geom.coordinates[1],
                 name: objData.description,
+                location: objData.location,
                 id: objData.key,
               });
               break;
@@ -67,7 +69,20 @@ export default function StreetFoodLocations() {
         >
           <div>
             <p>{ithMarker.name}</p>
-            <button>Add to favourites</button>
+            <button
+              onClick={() => {
+                Axios.post("http://localhost:3022/API/v1/AddFav", {
+                  username: window.localStorage.getItem("username"),
+                  favName: ithMarker.name,
+                  favCat: "Food",
+                  lat: ithMarker.latitude,
+                  lng: ithMarker.longitude,
+                });
+                window.alert("Added");
+              }}
+            >
+              Add to favourites
+            </button>
           </div>
         </Popup>
       ) : null;

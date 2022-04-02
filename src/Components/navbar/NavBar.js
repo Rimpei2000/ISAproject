@@ -2,15 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import {
-  Container,
-  Offcanvas,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Container, Offcanvas, Nav } from "react-bootstrap";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
@@ -61,6 +53,7 @@ const NavBar = (props) => {
               <Nav.Link href="/Weather">Weather</Nav.Link>
               <Nav.Link href="/Parks">Parks</Nav.Link>
               <Nav.Link href="/Buildings">Heritage Buildings</Nav.Link>
+              <Nav.Link href="/Favourites">Favourites</Nav.Link>
               <Nav.Link href="/Food">Food</Nav.Link>
               <Nav.Link href="/MyInfo">My Info</Nav.Link>
               <Nav.Link href="/ContactUs">Contact us</Nav.Link>

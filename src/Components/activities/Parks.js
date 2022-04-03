@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
+import { Button, Alert } from "react-bootstrap";
 import Axios from "axios";
 export default function Parks() {
   const [geopins, setGeopins] = useState([]);
@@ -40,7 +41,7 @@ export default function Parks() {
           latitude={ithMarker.latitude}
           longitude={ithMarker.longitude}
         >
-          <button
+          <Button
             style={{ background: "none", border: "none", cursor: "pointer" }}
             onClick={() => {
               setSelectedPark(ithMarker);
@@ -51,7 +52,7 @@ export default function Parks() {
               src="./parks.svg"
               alt={ithMarker.name}
             />
-          </button>
+          </Button>
         </Marker>
       );
     });
@@ -68,7 +69,8 @@ export default function Parks() {
         >
           <div>
             <p>{ithMarker.name}</p>
-            <button
+            <Button
+              variant="outline-secondary"
               onClick={() => {
                 Axios.post("http://localhost:3022/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
@@ -81,7 +83,7 @@ export default function Parks() {
               }}
             >
               Add to favourites
-            </button>
+            </Button>
           </div>
         </Popup>
       ) : null;

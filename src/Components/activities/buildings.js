@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import Axios from "axios";
 
 export default function HeritageBuildings() {
@@ -62,22 +63,6 @@ export default function HeritageBuildings() {
     });
   };
 
-  // const addToFavourites = (ithMarker) => {
-  //   let isDuplicate = false;
-  //   for (let key in geopins) {
-  //     if (geopins[key]["id"] == ithMarker["id"]) {
-  //       isDuplicate = true;
-  //     }
-  //   }
-  //   if (!isDuplicate) {
-  //     favouriteBuildings.push(ithMarker);
-
-  //     window.alert("Added!");
-  //   } else {
-  //     window.alert("Already exists");
-  //   }
-  // };
-
   const addPopup = () => {
     return geopins.map((ithMarker) => {
       return selectedBuilding && selectedBuilding.id == ithMarker.id ? (
@@ -90,7 +75,8 @@ export default function HeritageBuildings() {
         >
           <div>
             <p>{ithMarker.name}</p>
-            <button
+            <Button
+              variant="outline-secondary"
               onClick={() => {
                 Axios.post("http://localhost:3022/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
@@ -104,7 +90,7 @@ export default function HeritageBuildings() {
               }}
             >
               Add to favourites
-            </button>
+            </Button>
           </div>
         </Popup>
       ) : null;
@@ -123,8 +109,8 @@ export default function HeritageBuildings() {
         zoom: 11,
       }}
       style={{
-        width: "80vw",
-        height: "80vh",
+        width: "100vw",
+        height: "100vh",
         fog: {
           range: [-0.5, 3],
           color: "white",

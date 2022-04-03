@@ -1,34 +1,34 @@
 import React from "react";
-import styled from 'styled-components';
-import Axios from 'axios';
+import styled from "styled-components";
+import Axios from "axios";
+import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 function ContactUs() {
-
-  const send = async() => {
-    let msg = document.getElementById("content").value
+  const send = async () => {
+    let msg = document.getElementById("content").value;
     if (!msg) {
-      window.alert("Message is empty")
-      return
+      window.alert("Message is empty");
+      return;
     }
-    console.log(msg)
-    let name = await window.localStorage.getItem("username")
-    Axios.post('http://localhost:3022/API/v1/ContactUs', {
+    console.log(msg);
+    let name = await window.localStorage.getItem("username");
+    Axios.post("http://localhost:3022/API/v1/ContactUs", {
       username: name,
       msg: msg,
-    })
-    .then(res => {
+    }).then((res) => {
       if (res.status == 200) {
-        document.getElementById("reply").innerHTML = "Thank you for contacting us, we will get back to you within 3 days";
-        document.getElementById("content").value = ''
+        document.getElementById("reply").innerHTML =
+          "Thank you for contacting us, we will get back to you within 3 days";
+        document.getElementById("content").value = "";
       }
-    })
-  }
+    });
+  };
 
   return (
     <ContactUsStyled>
       <input type="text" id="content" />
       <button onClick={send}>Send Message</button>
-      <p id='reply'></p>
+      <p id="reply"></p>
     </ContactUsStyled>
   );
 }

@@ -96,8 +96,8 @@ export default function Favourites() {
         zoom: 11,
       }}
       style={{
-        width: "80vw",
-        height: "80vh",
+        width: "100vw",
+        height: "100vh",
         fog: {
           range: [-0.5, 3],
           color: "white",

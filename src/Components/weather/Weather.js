@@ -24,10 +24,10 @@ function Weather() {
   };
 
   let checkActivities = () => {
-    if (weather.condition == "Sunny") {
-      return "Check out Parks";
+    if (weather.condition == "Clear") {
+      return "Suggested : Parks";
     } else {
-      return "Checkout heritage buildings";
+      return "Suggested: Heritage Buildings";
     }
     // return eventSuggestions;
   };

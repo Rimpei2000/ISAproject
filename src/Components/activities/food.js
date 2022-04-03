@@ -1,6 +1,7 @@
 import react, { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
 import Axios from "axios";
+import { Button } from "react-bootstrap";
 
 export default function StreetFoodLocations() {
   const [geopins, setGeopins] = useState([]);
@@ -69,7 +70,8 @@ export default function StreetFoodLocations() {
         >
           <div>
             <p>{ithMarker.name}</p>
-            <button
+            <Button
+              variant="outline-secondary"
               onClick={() => {
                 Axios.post("http://localhost:3022/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
@@ -82,7 +84,7 @@ export default function StreetFoodLocations() {
               }}
             >
               Add to favourites
-            </button>
+            </Button>
           </div>
         </Popup>
       ) : null;

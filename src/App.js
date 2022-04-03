@@ -6,9 +6,9 @@ import ContactUs from "./Components/contactUs/ContactUs";
 import NavBar from "./Components/navbar/NavBar";
 import Weather from "./Components/weather/Weather";
 import MyInfo from "./Components/MyInfo";
-import PageNotFound from "./Components/PageNotFound"
+
 import { Route, Routes } from "react-router-dom";
-import Parks from "./Components/activities/Parks";
+import Parks from "./Components/activities/parks";
 import HeritageBuildings from "./Components/activities/buildings";
 import StreetFoodLocations from "./Components/activities/food";
 import Favourites from "./Components/favourites/favourites";
@@ -27,22 +27,23 @@ function App() {
     <div className="App">
       {login ? (
         <>
-          <header>
-            <NavBar userName={"username here"}></NavBar>
-          </header>
+          <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+            <header>
+              <NavBar userName={"username here"}></NavBar>
+            </header>
 
-          <div style={{ width: "100vw", height: "85vh" }}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/Weather" element={<Weather />} />
-              <Route path="/Parks" element={<Parks />} />
-              <Route path="/Buildings" element={<HeritageBuildings />} />
-              <Route path="/Food" element={<StreetFoodLocations />} />
-              <Route path="/Favourites" element={<Favourites />} />
-              <Route path="/ContactUs" element={<ContactUs />} />
-              <Route path="/MyInfo" element={<MyInfo />} />
-              <Route path='*' element={<PageNotFound/>} />
-            </Routes>
+            <div>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/Weather" element={<Weather />} />
+                <Route path="/Parks" element={<Parks />} />
+                <Route path="/Buildings" element={<HeritageBuildings />} />
+                <Route path="/Food" element={<StreetFoodLocations />} />
+                <Route path="/Favourites" element={<Favourites />} />
+                <Route path="/ContactUs" element={<ContactUs />} />
+                <Route path="/MyInfo" element={<MyInfo />} />
+              </Routes>
+            </div>
           </div>
         </>
       ) : (

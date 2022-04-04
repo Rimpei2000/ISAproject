@@ -84,7 +84,7 @@ function Weather() {
               <div className="date">{getTodaysDate(new Date())}</div>
               <br></br>
             </div>
-            <div className="checkActivities">{checkActivities()}</div>
+            <div className="checkActivities temp">{checkActivities()}</div>
           </div>
         </div>
       </main>

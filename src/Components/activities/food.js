@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
 import Axios from "axios";
 import { Button } from "react-bootstrap";
@@ -73,7 +73,7 @@ export default function StreetFoodLocations() {
             <Button
               variant="outline-secondary"
               onClick={() => {
-                Axios.post("http://localhost:3022/API/v1/AddFav", {
+                Axios.post("http://termproject.rshiratori.com/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
                   favName: ithMarker.name,
                   favCat: "Food",

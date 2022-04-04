@@ -3,12 +3,14 @@ import Map, { Popup, Marker } from "react-map-gl";
 import Axios from "axios";
 
 export default function Favourites() {
+  //   mapboxgl.workerClass =
+  //     require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
   const [geopins, setGeopins] = useState([]);
   const [selectedFavourites, setSelectedFavourites] = useState(null);
   const favouriteMarkers = [];
 
   const fetchFavourites = async () => {
-    Axios.get("http://localhost:3022/API/v1/GetFav", {
+    Axios.get("http://termproject.rshiratori.com/API/v1/GetFav", {
       params: { username: window.localStorage.getItem("username") },
     })
       .then((res) => res)

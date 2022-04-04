@@ -2,8 +2,6 @@ const { Client } = require("pg");
 require("dotenv").config();
 
 const client = new Client({
-  // temporarily hard coded the connectionString
-  // connectionString: process.env.DATABASE_URL,
   connectionString:
     "postgres://ovyyrifqiuffma:6b4ad0dae253dea9138d7e125c325894665379e4a29d1b55c973bb45cb5ba132@ec2-3-88-243-238.compute-1.amazonaws.com:5432/db5seb9d0002ik",
   ssl: {
@@ -11,9 +9,9 @@ const client = new Client({
   },
 });
 
-console.log("not connected");
+console.log("Not connected!");
 client.connect();
-console.log("connected");
+console.log("Connected!");
 
 // ADD NEW USER
 let addUser = async (userInput) => {
@@ -46,7 +44,6 @@ let checkUser = async (userInput) => {
 
 // DELETE USER
 let deleteUser = async (userInput) => {
-  console.log(userInput);
   const query = {
     text: `DELETE FROM user_info WHERE user_info_name=$1;`,
     values: [userInput.username],
@@ -59,7 +56,6 @@ let deleteUser = async (userInput) => {
 
 //UPDATE Location
 let updateLocation = async (userInput) => {
-  console.log(userInput);
   const query = {
     text: `UPDATE user_info SET user_info_location_id = $1 WHERE user_info_name = $2;`,
     values: [userInput.newLocation, userInput.userName],
@@ -131,7 +127,6 @@ let addFav = async (userInput) => {
 };
 
 let getDistinctFav = async (userInput) => {
-  console.log(userInput);
   const query = {
     text: "SELECT * FROM favorites WHERE user_name=$1;",
     values: [userInput.userName],

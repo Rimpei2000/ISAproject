@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Axios from "axios";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 function ContactUs() {
   const send = async () => {
@@ -10,9 +9,8 @@ function ContactUs() {
       window.alert("Message is empty");
       return;
     }
-    console.log(msg);
     let name = await window.localStorage.getItem("username");
-    Axios.post("http://localhost:3022/API/v1/ContactUs", {
+    Axios.post("http://termproject.rshiratori.com/API/v1/ContactUs", {
       username: name,
       msg: msg,
     }).then((res) => {

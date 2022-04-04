@@ -29,7 +29,6 @@ function Weather() {
     } else {
       return "Suggested: Heritage Buildings";
     }
-    // return eventSuggestions;
   };
 
   const getTodaysDate = (d) => {
@@ -85,9 +84,7 @@ function Weather() {
               <div className="date">{getTodaysDate(new Date())}</div>
               <br></br>
             </div>
-            <div className="temp" id="tempActivities">
-              {checkActivities()}
-            </div>
+            <div className="checkActivities">{checkActivities()}</div>
           </div>
         </div>
       </main>
@@ -96,5 +93,3 @@ function Weather() {
 }
 
 export default Weather;
-
-//

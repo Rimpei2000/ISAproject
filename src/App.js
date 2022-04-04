@@ -34,14 +34,26 @@ function App() {
 
             <div>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/Weather" element={<Weather />} />
-                <Route path="/Parks" element={<Parks />} />
-                <Route path="/Buildings" element={<HeritageBuildings />} />
-                <Route path="/Food" element={<StreetFoodLocations />} />
-                <Route path="/Favourites" element={<Favourites />} />
-                <Route path="/ContactUs" element={<ContactUs />} />
-                <Route path="/MyInfo" element={<MyInfo />} />
+                <Route path="/comp4537/project/" element={<Home />} />
+                <Route path="/comp4537/project/weather" element={<Weather />} />
+                <Route path="/comp4537/project/parks" element={<Parks />} />
+                <Route
+                  path="/comp4537/project/buildings"
+                  element={<HeritageBuildings />}
+                />
+                <Route
+                  path="/comp4537/project/food"
+                  element={<StreetFoodLocations />}
+                />
+                <Route
+                  path="/comp4537/project/favourites"
+                  element={<Favourites />}
+                />
+                <Route
+                  path="/comp4537/project/contactus"
+                  element={<ContactUs />}
+                />
+                <Route path="/comp4537/project/myinfo" element={<MyInfo />} />
               </Routes>
             </div>
           </div>
@@ -56,10 +68,3 @@ function App() {
 }
 
 export default App;
-
-// Eventzilla API key
-// bQgs7SBMSu6dPruGTVJcW9YtuE6iIsRn9Ki1kjOi
-
-// react - router - dom
-// mapbox - gl
-// react-bootstrap/Navbar

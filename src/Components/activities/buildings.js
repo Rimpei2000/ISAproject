@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
-import { Button, OverlayTrigger, Popover } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Axios from "axios";
 
 export default function HeritageBuildings() {
@@ -78,7 +78,7 @@ export default function HeritageBuildings() {
             <Button
               variant="outline-secondary"
               onClick={() => {
-                Axios.post("http://localhost:3022/API/v1/AddFav", {
+                Axios.post("http://termproject.rshiratori.com/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
                   favName: ithMarker.name,
                   favCat: "Heritage Buildings",
@@ -125,14 +125,3 @@ export default function HeritageBuildings() {
     </Map>
   );
 }
-
-// <div
-//         style={{
-//           position: "absolute",
-//           top: "10px",
-//           left: "10px",
-//           zIndex: "1",
-//         }}
-//       >
-//         <h1>Something to be displayed</h1>
-//       </div>

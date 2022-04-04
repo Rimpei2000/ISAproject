@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 let request = require("request");
 const bodyParser = require("body-parser");
-const port = 3022;
+const port = 8000;
 
 const {
   addUser,
@@ -12,7 +12,6 @@ const {
   sendMsg,
   endpointRequested,
   getRequests,
-  getUserIdByName,
   addFav,
   getDistinctFav,
 } = require("./pgHelper");
@@ -20,7 +19,10 @@ const {
 var jsonParser = bodyParser.json();
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "http://bhupeshduggal.com/comp4537/project/"
+  );
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.header(
     "Access-Control-Allow-Headers",
@@ -29,10 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// First endpoint
 app.get("/", (req, res) => res.send("HomePage is running"));
 
-// Second endpoint
 app.get("/getWeather", (req, res) => {
   request("https://www.google.com", function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -42,25 +42,7 @@ app.get("/getWeather", (req, res) => {
   });
 });
 
-// Third endpoint
-app.post("/saveActivities", (req, res) => res.send("HomePage is running"));
-
-// Fourth endpoint
-app.delete("/deleteActivities", (req, res) => res.send("HomePage is running"));
-
-// Fifth endpoint
-app.get("/", (req, res) => res.send("HomePage is running"));
-
-// Sixth endpoint
-app.get("/", (req, res) => res.send("HomePage is running"));
-
-// Seventh endpoint
-app.get("/aboutUs", (req, res) => res.send("HomePage is running"));
-
-// Eighth endpoint
-app.get("/contactUs", (req, res) => res.send("HomePage is running"));
-
-// SIGN UP
+// Sign up
 app.post("/API/v1/SignUp", jsonParser, async (req, res) => {
   let param = {
     newUserName: req.body.newUserName,
@@ -72,7 +54,7 @@ app.post("/API/v1/SignUp", jsonParser, async (req, res) => {
   res.json(data);
 });
 
-// LOG IN
+// Log in
 app.get("/API/v1/LogIn", async (req, res) => {
   let param = {
     userName: req.query.userName,
@@ -83,6 +65,7 @@ app.get("/API/v1/LogIn", async (req, res) => {
   res.json(data);
 });
 
+// Delete user
 app.delete("/API/v1/:userId", jsonParser, async (req, res) => {
   console.log(req);
   let param = {
@@ -93,6 +76,7 @@ app.delete("/API/v1/:userId", jsonParser, async (req, res) => {
   res.json(data);
 });
 
+// Update location
 app.put("/API/v1/MyInfo", jsonParser, async (req, res) => {
   let param = {
     newLocation: req.body.newLocation,
@@ -103,6 +87,7 @@ app.put("/API/v1/MyInfo", jsonParser, async (req, res) => {
   res.json(data);
 });
 
+// Send message
 app.post("/API/v1/ContactUs", jsonParser, async (req, res) => {
   let param = {
     username: req.body.username,
@@ -113,23 +98,28 @@ app.post("/API/v1/ContactUs", jsonParser, async (req, res) => {
   res.json(data);
 });
 
+// Get endpoints
 app.get("/API/v1/endpoints", jsonParser, async (req, res) => {
   let data = await getRequests();
   res.json(data);
 });
 
+// Get parks call count
 app.get("/API/v1/Parks", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Parks" });
 });
 
+// Get food call count
 app.get("/API/v1/Foods", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Foods" });
 });
 
+// Get buildings call count
 app.get("/API/v1/Buildings", async (req, res) => {
   await endpointRequested({ endpoint_uri: "/API/v1/Buildings" });
 });
 
+// Add location to favourites
 app.post("/API/v1/AddFav", jsonParser, async (req, res) => {
   let paramToAdd = {
     userName: req.body.username,
@@ -144,6 +134,7 @@ app.post("/API/v1/AddFav", jsonParser, async (req, res) => {
   res.json(data);
 });
 
+// Get Favourite locations list
 app.get("/API/v1/GetFav", jsonParser, async (req, res) => {
   let param = {
     userName: req.query.username,

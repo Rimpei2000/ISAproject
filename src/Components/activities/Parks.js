@@ -1,6 +1,6 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Map, { Popup, Marker } from "react-map-gl";
-import { Button, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Axios from "axios";
 export default function Parks() {
   const [geopins, setGeopins] = useState([]);
@@ -13,7 +13,6 @@ export default function Parks() {
     )
       .then((res) => res.json())
       .then((result) => {
-        // setParks(result);
         for (let key in result.records) {
           for (let internalKey in result.records[key]) {
             let objData = result.records[key][internalKey];
@@ -72,7 +71,7 @@ export default function Parks() {
             <Button
               variant="outline-secondary"
               onClick={() => {
-                Axios.post("http://localhost:3022/API/v1/AddFav", {
+                Axios.post("http://termproject.rshiratori.com/API/v1/AddFav", {
                   username: window.localStorage.getItem("username"),
                   favName: ithMarker.name,
                   favCat: "Parks",
@@ -91,7 +90,7 @@ export default function Parks() {
   };
 
   const incrementRequest = async () => {
-    Axios.get("http://localhost:3022/API/v1/Parks");
+    Axios.get("http://termproject.rshiratori.com/API/v1/Parks");
   };
 
   useEffect(() => {

@@ -5,20 +5,15 @@ import Axios from "axios";
 import { Container, Offcanvas, Nav } from "react-bootstrap";
 
 const NavBar = (props) => {
-  const navigate = useNavigate();
-
   const logout = () => {
     window.localStorage.setItem("login", false);
     window.localStorage.setItem("admin", false);
-    console.log("log out");
-    window.location.href = "http://localhost:3000";
+    window.location.href = "http://bhupeshduggal.com/comp4537/project/";
   };
 
   const deleteUser = async () => {
-    console.log("Delete user");
     const username = await window.localStorage.getItem("username");
-    const path = "http://localhost:3022/API/v1/" + username;
-    console.log(path);
+    const path = "http://termproject.rshiratori.com/API/v1/" + username;
     Axios.delete(path, {
       username: { username },
     }).then((res) => {
@@ -27,7 +22,7 @@ const NavBar = (props) => {
         console.log("deleted");
         window.localStorage.setItem("login", false);
         window.localStorage.setItem("admin", false);
-        window.location.href = "http://localhost:3000";
+        window.location.href = "http://bhupeshduggal.com/comp4537/project/";
       }
     });
   };
@@ -49,14 +44,18 @@ const NavBar = (props) => {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/Weather">Weather</Nav.Link>
-              <Nav.Link href="/Parks">Parks</Nav.Link>
-              <Nav.Link href="/Buildings">Heritage Buildings</Nav.Link>
-              <Nav.Link href="/Favourites">Favourites</Nav.Link>
-              <Nav.Link href="/Food">Food</Nav.Link>
-              <Nav.Link href="/MyInfo">My Info</Nav.Link>
-              <Nav.Link href="/ContactUs">Contact us</Nav.Link>
+              <Nav.Link href="/comp4537/project/">Home</Nav.Link>
+              <Nav.Link href="/comp4537/project/weather">Weather</Nav.Link>
+              <Nav.Link href="/comp4537/project/parks">Parks</Nav.Link>
+              <Nav.Link href="/comp4537/project/buildings">
+                Heritage Buildings
+              </Nav.Link>
+              <Nav.Link href="/comp4537/project/favourites">
+                Favourites
+              </Nav.Link>
+              <Nav.Link href="/comp4537/project/food">Food</Nav.Link>
+              <Nav.Link href="/comp4537/project/myinfo">My Info</Nav.Link>
+              <Nav.Link href="/comp4537/project/contactus">Contact us</Nav.Link>
               <Nav.Link onClick={logout}>Log Out</Nav.Link>
               <Nav.Link onClick={deleteUser}>Delete Account</Nav.Link>
             </Nav>

@@ -1,11 +1,8 @@
 Outivity
-Group U4
 
 Rimpei Shiratori
-A01196926
 
 Bhupesh Duggal
-A01180317
 
 the idea behind our app is to suggest the users activities to do based on the weather. We have a weather widget where we suggest the type of activitiies. 
 
